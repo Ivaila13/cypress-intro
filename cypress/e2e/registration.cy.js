@@ -37,3 +37,56 @@ describe('Registration tests', () => {
     cy.url().should('eq', 'http://localhost:8080/thank-you?') 
   })
 })
+describe('Registration tests', () => {
+
+  // Изпълнява се преди всеки тест
+  beforeEach(() => {
+    // Посещава началната страница на приложението
+    cy.visit('http://localhost:8080/');
+  });
+
+  it('enter submit without valid username', () => {
+    // Кликва върху бутона за изпращане на формата без да попълва името
+    cy.get('[data-test-id="submit"]').click();
+    // Проверява дали съобщението за грешка на полето "fullname" е видимо
+    cy.get('[data-test-id="fullname-error"]').should('be.visible');
+  });
+
+  it('enter invalid email', () => {
+    // Въвежда невалиден имейл
+    cy.get('[data-test-id="email"]').type('invalid_email');
+    // Кликва върху бутона за изпращане
+    cy.get('[data-test-id="submit"]').click();
+    // Проверява дали съобщението за грешка на полето "email" е видимо
+    cy.get('[data-test-id="email-error"]').should('be.visible');
+  });
+
+  it('select invalid gender', () => {
+    // Избира невалидна стойност за пол от падащото меню
+    cy.get('[data-test-id="gender"]').select('Invalid');
+    // Кликва върху бутона за изпращане
+    cy.get('[data-test-id="submit"]').click();
+    // Проверява дали съобщението за грешка на полето "gender" е видимо
+    cy.get('[data-test-id="gender-error"]').should('be.visible');
+  });
+
+  it('enter short password', () => {
+    // Въвежда твърде кратка парола
+    cy.get('[data-test-id="password"]').type('short');
+    // Кликва върху бутона за изпращане
+    cy.get('[data-test-id="submit"]').click();
+    // Проверява дали съобщението за грешка на полето "password" е видимо
+    cy.get('[data-test-id="password-error"]').should('be.visible');
+  });
+
+  it('enter non-matching passwords', () => {
+    // Въвежда различни пароли в двата полета
+    cy.get('[data-test-id="password"]').type('password123');
+    cy.get('[data-test-id="confirm-password"]').type('password');
+    // Кликва върху бутона за изпращане
+    cy.get('[data-test-id="submit"]').click();
+    // Проверява дали съобщението за грешка на полето "confirm-password" е видимо
+    cy.get('[data-test-id="confirm-password-error"]').should('be.visible');
+  });
+
+});

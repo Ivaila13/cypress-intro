@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet"  type="text/css"  href="css/style.css">
+    <!-- Fontawesome CDN Link For Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  </head>
+  <body>
+
+    <!-- Login Form -->
+    <form id="login-form">
+      <h2>Login Form</h2>
+
+      <div class="form-group email">
+        <label for="login-email">Email Address</label>
+        <input type="email" id="login-email" data-test-id="email" placeholder="Enter your email address" required>
+      </div>
+
+      <div class="form-group password">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" data-test-id="password" placeholder="Enter your password" required>
+      </div>
+
+      <div class="form-group submit-btn">
+        <input type="submit" data-test-id="submit" value="Login">
+      </div>
+    </form>
+
+    <!-- Inline Script for Form Handling -->
+    <script>
+      document.getElementById("login-form").addEventListener("submit", function(event) {
+        event.preventDefault();  // предотвратява изпращането на формата
+        
+        // Извличане на стойностите от полетата на формата
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        // Проста валидация на данни
+        if (!email || !password) {
+          alert("Please fill out both email and password.");
+          return;
+        }
+
+        // Тук можеш да добавиш логика за валидация с база данни или API
+        alert("Logging in with:\nEmail: " + email + "\nPassword: " + password);
+
+        // Може да добавиш код за преминаване към друга страница или действие
+        // Например: window.location.href = "/home"; 
+      });
+    </script>
+
+  </body>
+</html>
